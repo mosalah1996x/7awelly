@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sawa FX | Exchange Monitor</title>
+    <meta
+      name="description"
+      content="Saudi-Egypt exchange monitor with live rates, converter, timeline, and market news."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="Sawa FX brand">
+          <div class="brand-mark">S</div>
+          <div>
+            <h1 data-i18n="brand">Sawa FX</h1>
+            <p data-i18n="tagline">Saudi–Egypt exchange monitor</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button id="themeToggle" class="ghost-button" aria-label="Toggle theme">
+            <span id="themeIcon">☀️</span>
+          </button>
+
+          <div class="language-switch" aria-label="Language switcher">
+            <button class="lang-button active" data-lang="en">EN</button>
+            <button class="lang-button" data-lang="ar">AR</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="container">
+        <section class="hero panel">
+          <div class="hero-copy">
+            <span class="eyebrow" data-i18n="eyebrow">Live market snapshot</span>
+            <h2 data-i18n="heroTitle">USD, SAR and EGP in one smart dashboard</h2>
+            <p data-i18n="heroText">
+              Track real-time exchange movements, compare the Saudi Riyal and US Dollar, and
+              convert currencies quickly and clearly.
+            </p>
+          </div>
+
+          <div class="hero-side">
+            <div class="live-badge">
+              <span class="live-dot"></span>
+              <span data-i18n="live">Live</span>
+            </div>
+            <div class="clock-box">
+              <span class="clock-label" data-i18n="updatedAt">Updated</span>
+              <strong id="clockDisplay">--:--:--</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card accent-gold">
+            <span class="stat-label" data-i18n="usdToEgp">USD → EGP</span>
+            <strong id="usdEgpRate">50.80</strong>
+            <small id="usdEgpTrend" class="positive">+0.1%</small>
+          </article>
+
+          <article class="stat-card accent-blue">
+            <span class="stat-label" data-i18n="usdToSar">USD → SAR</span>
+            <strong id="usdSarRate">3.75</strong>
+            <small id="usdSarTrend" class="positive">+0.2%</small>
+          </article>
+
+          <article class="stat-card accent-green">
+            <span class="stat-label" data-i18n="sarToEgp">SAR → EGP</span>
+            <strong id="sarEgpRate">13.55</strong>
+            <small id="sarEgpTrend" class="positive">+0.1%</small>
+          </article>
+        </section>
+
+        <section class="panel-grid">
+          <article class="panel">
+            <div class="panel-header">
+              <h3 data-i18n="exchangeTableTitle">Exchange rates</h3>
+              <span class="status-pill" data-i18n="reference">Reference</span>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="pair">Pair</th>
+                  <th data-i18n="rate">Rate</th>
+                  <th data-i18n="change">Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>USD / EGP</td>
+                  <td id="tableUsdEgp">50.80</td>
+                  <td id="changeUsdEgp" class="positive">+0.12%</td>
+                </tr>
+                <tr>
+                  <td>USD / SAR</td>
+                  <td id="tableUsdSar">3.75</td>
+                  <td id="changeUsdSar" class="positive">+0.20%</td>
+                </tr>
+                <tr>
+                  <td>SAR / EGP</td>
+                  <td id="tableSarEgp">13.55</td>
+                  <td id="changeSarEgp" class="positive">+0.15%</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <h3 data-i18n="chartTitle">Price timeline</h3>
+              <div class="timeframe-group" aria-label="Timeframe picker">
+                <button class="timeframe-btn active" data-range="1h">1H</button>
+                <button class="timeframe-btn" data-range="1d">1D</button>
+                <button class="timeframe-btn" data-range="1w">1W</button>
+                <button class="timeframe-btn" data-range="1m">1M</button>
+              </div>
+            </div>
+
+            <svg id="trendChart" viewBox="0 0 520 220" role="img" aria-label="Exchange timeline chart"></svg>
+          </article>
+        </section>
+
+        <section class="panel comparison-panel">
+          <div class="panel-header">
+            <h3 data-i18n="comparisonTitle">Rate comparison</h3>
+            <span class="status-pill" data-i18n="market">Market</span>
+          </div>
+
+          <div class="comparison-grid">
+            <div class="mini-card">
+              <span data-i18n="bankFaisal">Faisal Bank</span>
+              <strong id="faisalBankUsdEgp">50.95</strong>
+              <small data-i18n="usdToEgp">USD → EGP</small>
+            </div>
+            <div class="mini-card">
+              <span data-i18n="marketUsdSar">USD / SAR</span>
+              <strong id="marketUsdSar">3.75</strong>
+              <small data-i18n="usdToSar">USD → SAR</small>
+            </div>
+            <div class="mini-card">
+              <span data-i18n="marketSarEgp">SAR / EGP</span>
+              <strong id="marketSarEgp">13.55</strong>
+              <small data-i18n="sarToEgp">SAR → EGP</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel bank-panel">
+          <div class="panel-header">
+            <h3 data-i18n="bankRatesTitle">Faisal Bank rates</h3>
+            <span class="status-pill" data-i18n="bank">Bank</span>
+          </div>
+
+          <div class="bank-grid">
+            <div class="bank-card">
+              <span data-i18n="buy">Buy</span>
+              <strong id="bankBuyUsdEgp">50.65</strong>
+              <small>USD / EGP</small>
+            </div>
+            <div class="bank-card">
+              <span data-i18n="sell">Sell</span>
+              <strong id="bankSellUsdEgp">51.20</strong>
+              <small>USD / EGP</small>
+            </div>
+            <div class="bank-card">
+              <span data-i18n="buy">Buy</span>
+              <strong id="bankBuyUsdSar">3.71</strong>
+              <small>USD / SAR</small>
+            </div>
+            <div class="bank-card">
+              <span data-i18n="sell">Sell</span>
+              <strong id="bankSellUsdSar">3.79</strong>
+              <small>USD / SAR</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel subscription-panel">
+          <div class="panel-header">
+            <h3 data-i18n="subscriptionTitle">Price alerts</h3>
+            <span class="status-pill" data-i18n="alerts">Alerts</span>
+          </div>
+
+          <div class="subscribe-grid">
+            <div class="field wide-field">
+              <label for="emailInput" data-i18n="emailLabel">Email</label>
+              <input id="emailInput" type="email" placeholder="name@example.com" />
+            </div>
+
+            <div class="field">
+              <label for="alertChannel" data-i18n="alertChannel">Delivery channel</label>
+              <select id="alertChannel">
+                <option value="email">Email</option>
+                <option value="telegram">Telegram</option>
+                <option value="whatsapp">WhatsApp</option>
+              </select>
+            </div>
+
+            <div class="field wide-field">
+              <label for="alertDestination" data-i18n="alertDestination">Destination</label>
+              <input id="alertDestination" type="text" placeholder="@username or +966..." />
+            </div>
+
+            <div class="field">
+              <label for="alertPair" data-i18n="alertPair">Alert pair</label>
+              <select id="alertPair">
+                <option value="USD/EGP">USD / EGP</option>
+                <option value="USD/SAR">USD / SAR</option>
+                <option value="SAR/EGP">SAR / EGP</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="alertThreshold" data-i18n="alertThreshold">Threshold</label>
+              <select id="alertThreshold">
+                <option value="0.25">±0.25</option>
+                <option value="0.50">±0.50</option>
+                <option value="1.00">±1.00</option>
+                <option value="2.00">±2.00</option>
+              </select>
+            </div>
+
+            <div class="field button-field">
+              <button id="subscribeBtn" class="subscribe-btn" data-i18n="subscribe">Subscribe</button>
+            </div>
+          </div>
+
+          <div id="subscriptionStatus" class="subscription-status" aria-live="polite">
+            No alerts subscribed yet.
+          </div>
+        </section>
+
+        <section class="panel converter-panel">
+          <div class="panel-header">
+            <h3 data-i18n="converterTitle">Currency converter</h3>
+            <span class="status-pill" data-i18n="quick">Quick</span>
+          </div>
+
+          <div class="converter-grid">
+            <div class="field">
+              <label for="amountInput" data-i18n="amount">Amount</label>
+              <input id="amountInput" type="number" min="0" step="0.01" value="1000" />
+            </div>
+
+            <div class="field">
+              <label for="fromCurrency" data-i18n="from">From</label>
+              <select id="fromCurrency">
+                <option value="USD">USD</option>
+                <option value="EGP">EGP</option>
+                <option value="SAR">SAR</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="toCurrency" data-i18n="to">To</label>
+              <select id="toCurrency">
+                <option value="EGP">EGP</option>
+                <option value="USD">USD</option>
+                <option value="SAR">SAR</option>
+              </select>
+            </div>
+
+            <div class="field result-box">
+              <label data-i18n="result">Result</label>
+              <strong id="convertedValue">0.00</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel news-panel">
+          <div class="panel-header">
+            <h3 data-i18n="newsTitle">Market news</h3>
+            <span class="status-pill" data-i18n="monitoring">Monitoring</span>
+          </div>
+
+          <div id="newsList" class="news-grid" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
